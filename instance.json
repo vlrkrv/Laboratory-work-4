@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-04",
+  "duration": 600,
+  "warmUpComplex": {
+    "name": "Ранкова розминка"
+  },
+  "exerciseResults": [
+    {
+      "exercise": {
+        "name": "Обертання головою",
+        "minAllowedAmplitude": 90,
+        "maxAllowedAmplitude": 180,
+        "bodyLinks": ["шия", "голова"]
+      },
+      "achievedAmplitude": 120,
+      "postureEvaluation": "matches",
+      "amplitudeEvaluation": "acceptable"
+    }
+  ],
+  "warmUpSummary": {
+    "isCorrect": true,
+    "hasOverexertion": false
+  }
+}
