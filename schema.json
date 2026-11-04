@@ -1,0 +1,116 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "WarmUpResult",
+    "description": "Результат однієї виконаної суглобової розминки",
+    "type": "object",
+    "properties": {
+        "date": {
+            "description": "Дата виконання розминки",
+            "type": "string",
+            "format": "date"
+        },
+        "duration": {
+            "description": "Тривалість розминки, секунди",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 7200
+        },
+        "warmUpComplex": {
+            "description": "Виконаний комплекс розминки",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "Назва комплексу розминки",
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 100,
+                    "pattern": "^[A-Za-zА-Яа-яІіЇїЄєҐґ0-9][A-Za-zА-Яа-яІіЇїЄєҐґ0-9 '’-]{1,99}$"
+                }
+            },
+            "required": ["name"]
+        },
+        "exerciseResults": {
+            "description": "Результати виконання вправ комплексу",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "exercise": {
+                        "description": "Виконана вправа суглобової розминки",
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "description": "Назва вправи",
+                                "type": "string",
+                                "minLength": 2,
+                                "maxLength": 100,
+                                "pattern": "^[A-Za-zА-Яа-яІіЇїЄєҐґ0-9][A-Za-zА-Яа-яІіЇїЄєҐґ0-9 '’-]{1,99}$"
+                            },
+                            "minAllowedAmplitude": {
+                                "description": "Нижня межа допустимої амплітуди рухів, градуси",
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 360
+                            },
+                            "maxAllowedAmplitude": {
+                                "description": "Верхня межа допустимої амплітуди рухів, градуси",
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 360
+                            },
+                            "bodyLinks": {
+                                "description": "Ланки тіла, задіяні у вправі",
+                                "type": "array",
+                                "minItems": 1,
+                                "maxItems": 6,
+                                "uniqueItems": true,
+                                "items": {
+                                    "description": "Назва ланки тіла",
+                                    "type": "string",
+                                    "minLength": 3,
+                                    "maxLength": 30,
+                                    "pattern": "^[а-яіїєґ][а-яіїєґ '’-]{1,28}[а-яіїєґ]$"
+                                }
+                            }
+                        },
+                        "required": ["name", "minAllowedAmplitude", "maxAllowedAmplitude", "bodyLinks"]
+                    },
+                    "achievedAmplitude": {
+                        "description": "Досягнута амплітуда рухів, градуси",
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 360
+                    },
+                    "postureEvaluation": {
+                        "description": "Оцінка положення ланок тіла",
+                        "type": "string",
+                        "enum": ["matches", "not_matches"]
+                    },
+                    "amplitudeEvaluation": {
+                        "description": "Оцінка амплітуди рухів",
+                        "type": "string",
+                        "enum": ["acceptable", "insufficient", "overexertion"]
+                    }
+                },
+                "required": ["exercise", "achievedAmplitude", "postureEvaluation", "amplitudeEvaluation"]
+            }
+        },
+        "warmUpSummary": {
+            "description": "Підсумок виконання розминки",
+            "type": "object",
+            "properties": {
+                "isCorrect": {
+                    "description": "Ознака правильності виконання розминки",
+                    "type": "boolean"
+                },
+                "hasOverexertion": {
+                    "description": "Ознака наявності перенапруження",
+                    "type": "boolean"
+                }
+            },
+            "required": ["isCorrect", "hasOverexertion"]
+        }
+    },
+    "required": ["date", "duration", "warmUpComplex", "exerciseResults", "warmUpSummary"]
+}
