@@ -1,0 +1,20 @@
+name: Data Schema Code Convention
+on:
+  push:
+    branches: [main]
+
+jobs:
+  json_schema_linter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      - name: Install JSON Schema Validator
+        run: npm install --global @sourcemeta/jsonschema
+        
+      - name: Validate Schema Syntax
+        run: jsonschema metaschema schema.json
+        
+      - name: Validate Instance against Schema
+        run: jsonschema validate schema.json instance.json
