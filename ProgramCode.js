@@ -1,2 +1,2 @@
-let var1 = "Hello";
-console.log("Суглобова розминка");
+var message = "Суглобова розминка (RWA)";
+console.log(message);
